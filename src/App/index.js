@@ -20,10 +20,11 @@ function App() {
       <hr />
       {students.map((studentInfo) => (
         <StudentCard key={studentInfo.firebaseKey}
+          firebaseKey={studentInfo.firebaseKey}
           name={studentInfo.name}
           teacher={studentInfo.teacher}
           grade={Number(studentInfo.grade)}
-          handleClick={() => console.warn(`${studentInfo.name}'s teacher is ${studentInfo.teacher}`)}
+          setStudents={setStudents}
         />
       ))}
     </div>

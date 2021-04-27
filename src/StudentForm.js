@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addStudent } from './helpers/data/StudentData';
+import { addStudent, updateStudent } from './helpers/data/StudentData';
 
-const StudentForm = ({ formTitle, setStudents }) => {
+const StudentForm = ({
+  formTitle,
+  setStudents,
+  name,
+  teacher,
+  grade,
+  firebaseKey
+}) => {
   const [student, setStudent] = useState({
-    name: '',
-    teacher: '',
-    grade: 0
+    name: name || '', // use name if it is available and if not make an empty string
+    teacher: teacher || '',
+    grade: grade || 0,
+    firebaseKey: firebaseKey || null
   });
 
   const handleInputChange = (e) => {
@@ -18,7 +26,12 @@ const StudentForm = ({ formTitle, setStudents }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent(student).then((studentsArray) => setStudents(studentsArray));
+    if (student.firebaseKey) {
+      console.warn('You want to update this student');
+      updateStudent(student).then((studentArray) => setStudents(studentArray));
+    } else {
+      addStudent(student).then((studentArray) => setStudents(studentArray));
+    }
   };
 
   return (
@@ -63,7 +76,11 @@ const StudentForm = ({ formTitle, setStudents }) => {
 
 StudentForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
-  setStudents: PropTypes.func.isRequired
+  setStudents: PropTypes.func,
+  name: PropTypes.string,
+  teacher: PropTypes.string,
+  grade: PropTypes.number,
+  firebaseKey: PropTypes.string
 };
 
 export default StudentForm;
