@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './App.scss';
-import StudentForm from '../StudentForm';
+import { BrowserRouter as Router } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import { getStudent } from '../helpers/data/StudentData';
-import StudentCard from '../components/StudentCard';
+import Routes from '../helpers/Routes';
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -12,30 +12,16 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      <StudentForm
-        formTitle='Form Title'
-        setStudents={setStudents}
-      />
-      <hr />
-      {students.map((studentInfo) => (
-        <StudentCard key={studentInfo.firebaseKey}
-          firebaseKey={studentInfo.firebaseKey}
-          name={studentInfo.name}
-          teacher={studentInfo.teacher}
-          grade={Number(studentInfo.grade)}
+    <>
+      <Router>
+        <NavBar />
+        <Routes
+          students={students}
           setStudents={setStudents}
         />
-      ))}
-    </div>
+      </Router>
+    </>
   );
 }
-
-/* <Card body key={studentInfo.firebaseKey}>
-<CardTitle tag="h5">{studentInfo.name}</CardTitle>
-<CardText>Teacher: {studentInfo.teacher}</CardText>
-<CardText>Grade: {studentInfo.grade}</CardText>
-<Button onClick={() => console.warn(`${studentInfo.name}'s teacher is ${studentInfo.teacher}`)}>Print Student</Button>
-</Card> */
 
 export default App;
