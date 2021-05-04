@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addStudent, updateStudent } from './helpers/data/StudentData';
 
@@ -17,6 +18,8 @@ const StudentForm = ({
     firebaseKey: firebaseKey || null
   });
 
+  const history = useHistory();
+
   const handleInputChange = (e) => {
     setStudent((prevState) => ({
       ...prevState,
@@ -31,6 +34,7 @@ const StudentForm = ({
       updateStudent(student).then((studentArray) => setStudents(studentArray));
     } else {
       addStudent(student).then((studentArray) => setStudents(studentArray));
+      history.push('/students');
     }
   };
 

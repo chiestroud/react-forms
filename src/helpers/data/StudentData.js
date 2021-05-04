@@ -33,6 +33,12 @@ const updateStudent = (student) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getSingleStudent = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/students/${firebaseKey}.json`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
-  getStudent, addStudent, deleteStudent, updateStudent
+  getStudent, addStudent, deleteStudent, updateStudent, getSingleStudent
 };

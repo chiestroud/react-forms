@@ -1,9 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Home = () => (
-    <>
-      <h1>Home Page</h1>
-    </>
-);
+export default function Home({ user }) {
+  return (
+    <div>
+      { user
+        ? <div><h1>Hello, {user.fullName}</h1>
+          <img className='profileImage' src={user.profileImage} />
+          <p>Your username is {user.username}</p>
+        </div>
+        : <h1>Hello, World!</h1>
+      }
+    </div>
+  );
+}
 
-export default Home;
+Home.propTypes = {
+  user: PropTypes.any
+};

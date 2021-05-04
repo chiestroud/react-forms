@@ -4,3 +4,8 @@
 body {
   background-color: $favColor;
 }
+
+.profileImage {
+  border-radius: 50%;
+  object-fit: fill;
+}
